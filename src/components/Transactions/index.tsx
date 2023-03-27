@@ -30,7 +30,7 @@ export const Transactions: TransactionsComponent = ({ transactions }) => {
   return (
     <div data-testid="transaction-container">
       {transactions.map((transaction) => {
-        console.log(`Rendering TransactionPane for transaction id ${transaction.id}`);
+        console.log(`ya ${transaction.id}`);
         return (
           <TransactionPane
             key={transaction.id}
