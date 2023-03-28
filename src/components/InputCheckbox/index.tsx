@@ -1,41 +1,36 @@
-// Child
-import classNames from "classnames";
-import React, { useRef, SyntheticEvent } from "react";
-import { InputCheckboxComponent } from "./types";
+import classNames from "classnames"
+import { useRef, useState } from "react"
+import { InputCheckboxComponent } from "./types"
 
-export const InputCheckbox: InputCheckboxComponent = ({
-  id,
-  checked = false,
-  disabled,
-  onChange,
-}) => {
-  const { current: inputId } = useRef(`RampInputCheckbox-${id}`);
+export const InputCheckbox: InputCheckboxComponent = ({ id, checked = false, disabled, onChange }) => {
+  const { current: inputId } = useRef(`RampInputCheckbox-${id}`)
+  const [isChecked, setIsChecked] = useState(checked)
 
-  console.log(`Rendering InputCheckbox component with id ${id}`);
-
-  const handleInputChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    console.log(`Checkbox with id ${id} was clicked`);
-    onChange(event.currentTarget.checked);
-  };
+  const handleOnChange = () => {
+    const newChecked = !isChecked
+    setIsChecked(newChecked)
+    onChange(newChecked)
+  }
 
   return (
     <div className="RampInputCheckbox--container" data-testid={inputId}>
       <label
         className={classNames("RampInputCheckbox--label", {
-          "RampInputCheckbox--label-checked": checked,
+          "RampInputCheckbox--label-checked": isChecked,
           "RampInputCheckbox--label-disabled": disabled,
         })}
+        htmlFor={inputId}
       />
       <input
         id={inputId}
         type="checkbox"
         className="RampInputCheckbox--input"
-        checked={checked}
+        checked={isChecked}
         disabled={disabled}
-        onChange={handleInputChange}
+        onChange={handleOnChange}
       />
     </div>
-  );
-};
+  )
+}
 
-export default React.memo(InputCheckbox);
+export default InputCheckbox

@@ -6,8 +6,6 @@ export const AppContextProvider: AppContextProviderComponent = ({ children }) =>
   const cache = useRef(new Map<string, string>())
   const [error, setError] = useState<string>("")
 
-  console.log('Rendering AppContextProvider component')
-
   return (
     <AppContext.Provider value={{ setError, cache }}>
       {error ? (

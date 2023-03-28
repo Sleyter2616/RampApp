@@ -44,7 +44,6 @@ export function fakeFetch<TData, TParams extends object = object>(
 
         case "transactionsByEmployee":
           result = getTransactionsByEmployee(params as RequestByEmployeeParams) as unknown as TData
-
           setTimeout(() => {
             mockApiLogger({ data: { endpoint, params, result } })
             resolve(result)

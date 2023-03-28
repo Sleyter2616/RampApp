@@ -30,8 +30,6 @@ export function InputSelect<TItem>({
     [consumerOnChange]
   )
 
-  console.log(`Rendering InputSelect component with label: ${label}`)
-
   return (
     <Downshift<TItem>
       id="RampSelect"
@@ -51,11 +49,6 @@ export function InputSelect<TItem>({
       }) => {
         const toggleProps = getToggleButtonProps()
         const parsedSelectedItem = selectedItem === null ? null : parseItem(selectedItem)
-
-        console.log(`isOpen: ${isOpen}`)
-        console.log(`highlightedIndex: ${highlightedIndex}`)
-        console.log(`selectedItem: ${selectedItem}`)
-        console.log(`inputValue: ${inputValue}`)
 
         return (
           <div className="RampInputSelect--root">

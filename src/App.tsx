@@ -30,20 +30,21 @@ export function App() {
 
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
+      if (!employeeId) {
+        loadAllTransactions()
+      }
       paginatedTransactionsUtils.invalidateData()
       await transactionsByEmployeeUtils.fetchById(employeeId)
     },
-    [paginatedTransactionsUtils, transactionsByEmployeeUtils]
+    [paginatedTransactionsUtils, transactionsByEmployeeUtils, loadAllTransactions]
   )
 
   useEffect(() => {
     if (employees === null && !employeeUtils.loading) {
-      console.log('Loading all transactions')
       loadAllTransactions()
     }
   }, [employeeUtils.loading, employees, loadAllTransactions])
 
-  console.log('Rendering App component')
   return (
     <Fragment>
       <main className="MainContainer">
@@ -65,7 +66,6 @@ export function App() {
             if (newValue === null) {
               return
             }
-            console.log(`Loading transactions for employee ID: ${newValue.id}`)
             await loadTransactionsByEmployee(newValue.id)
           }}
         />
@@ -78,9 +78,8 @@ export function App() {
           {transactions !== null && (
             <button
               className="RampButton"
-              disabled={paginatedTransactionsUtils.loading}
+              disabled={paginatedTransactionsUtils.loading || paginatedTransactions?.nextPage == null}
               onClick={async () => {
-                console.log('Loading all transactions')
                 await loadAllTransactions()
               }}
             >

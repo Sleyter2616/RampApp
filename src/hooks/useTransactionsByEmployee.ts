@@ -9,21 +9,18 @@ export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
 
   const fetchById = useCallback(
     async (employeeId: string) => {
-      console.log("Fetching transactions for employee ID:", employeeId)
       const data = await fetchWithCache<Transaction[], RequestByEmployeeParams>(
         "transactionsByEmployee",
         {
           employeeId,
         }
       )
-      console.log("Received transactions data for employee ID:", employeeId)
       setTransactionsByEmployee(data)
     },
     [fetchWithCache]
   )
 
   const invalidateData = useCallback(() => {
-    console.log("Invalidating transactions data")
     setTransactionsByEmployee(null)
   }, [])
 

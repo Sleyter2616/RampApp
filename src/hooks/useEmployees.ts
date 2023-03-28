@@ -8,14 +8,11 @@ export function useEmployees(): EmployeeResult {
   const [employees, setEmployees] = useState<Employee[] | null>(null)
 
   const fetchAll = useCallback(async () => {
-    console.log("Fetching employees...")
     const employeesData = await fetchWithCache<Employee[]>("employees")
-    console.log("Employees data:", employeesData)
     setEmployees(employeesData)
   }, [fetchWithCache])
 
   const invalidateData = useCallback(() => {
-    console.log("Invalidating employees data...")
     setEmployees(null)
   }, [])
 

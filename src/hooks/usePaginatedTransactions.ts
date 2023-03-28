@@ -10,7 +10,6 @@ export function usePaginatedTransactions(): PaginatedTransactionsResult {
   > | null>(null)
 
   const fetchAll = useCallback(async () => {
-    console.log("Fetching paginated transactions...")
     const response = await fetchWithCache<PaginatedResponse<Transaction[]>, PaginatedRequestParams>(
       "paginatedTransactions",
       {
@@ -28,7 +27,6 @@ export function usePaginatedTransactions(): PaginatedTransactionsResult {
   }, [fetchWithCache, paginatedTransactions])
 
   const invalidateData = useCallback(() => {
-    console.log("Invalidating paginated transaction data...")
     setPaginatedTransactions(null)
   }, [])
 
