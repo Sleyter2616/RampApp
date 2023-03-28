@@ -9,6 +9,7 @@ import {
 import mockData from "../mock-data.json"
 
 const TRANSACTIONS_PER_PAGE = 5
+const MOCK_DATA_KEY ="mock-data"
 
 const data: { employees: Employee[]; transactions: Transaction[] } = {
   employees: mockData.employees,
@@ -48,13 +49,26 @@ export const getTransactionsByEmployee = ({ employeeId }: RequestByEmployeeParam
 }
 
 export const setTransactionApproval = ({ transactionId, value }: SetTransactionApprovalParams): void => {
-  const transaction = data.transactions.find(
-    (currentTransaction) => currentTransaction.id === transactionId
-  )
-
-  if (!transaction) {
-    throw new Error("Invalid transaction to approve")
+  // Retrieve the transaction data from the cache
+  const cachedData = localStorage.getItem(MOCK_DATA_KEY);
+  if (!cachedData) {
+    throw new Error("Unable to retrieve transaction data from cache");
   }
 
-  transaction.approved = value
-}
+  // Parse the transaction data
+  const transactions = JSON.parse(cachedData);
+
+  // Find the transaction that matches the provided ID
+  const transactionIndex = transactions.findIndex((transaction: { id: string }) => transaction.id === transactionId);
+  if (transactionIndex === -1) {
+    throw new Error("Invalid transaction ID");
+  }
+
+  // Update the transaction's approved status
+  transactions[transactionIndex].approved = value;
+
+  // Update the cache with the new transaction data
+  localStorage.setItem(MOCK_DATA_KEY, JSON.stringify(transactions));
+};
+
+

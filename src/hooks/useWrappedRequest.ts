@@ -15,7 +15,7 @@ export function useWrappedRequest() {
       } catch (error) {
         console.error("Request error:", error)
         setError(error as string)
-        throw error // re-throw the error so that the calling code can handle it
+        throw error
       } finally {
         setLoading(false)
         console.log("Request finished")

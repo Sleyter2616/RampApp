@@ -117,6 +117,21 @@ function getTimeout() {
 
   return timeout
 }
+//If we had a server
+// export const updateTransactionApproval = async (
+//   transactionId: string,
+//   approved: boolean
+// ): Promise<void> => {
+//   const response = await fetch(`/api/transactions/${transactionId}`, {
+//     method: "PUT",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ approved }),
+//   });
+//   if (!response.ok) {
+//     throw new Error(`Failed to update transaction approval: ${response.status} ${response.statusText}`);
+//   }
+// };
+
 
 export type RegisteredEndpoints =
   | "employees"
